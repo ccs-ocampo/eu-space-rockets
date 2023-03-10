@@ -1,3 +1,5 @@
+package decorators;
+
 public enum Browser {
     CHROME,
     FIREFOX,

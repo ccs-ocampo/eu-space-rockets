@@ -1,4 +1,7 @@
+package decorators;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 
 public class ElementDecorator extends Element {
     protected final Element element;
@@ -30,6 +33,11 @@ public class ElementDecorator extends Element {
     @Override
     public void typeText(String text) {
         element.typeText(text);
+    }
+
+    @Override
+    public void typeKey(Keys key) {
+        element.typeKey(key);
     }
 
     @Override

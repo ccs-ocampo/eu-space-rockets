@@ -1,3 +1,5 @@
+package decorators;
+
 import org.openqa.selenium.By;
 
 import java.util.List;

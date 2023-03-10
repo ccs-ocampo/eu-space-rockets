@@ -1,8 +1,10 @@
+package decorators;
+
 import org.openqa.selenium.By;
 
 import java.util.List;
 
-public class LogDriver extends DriverDecorator{
+public class LogDriver extends DriverDecorator {
     public LogDriver(Driver driver) {
         super(driver);
     }
@@ -34,6 +36,6 @@ public class LogDriver extends DriverDecorator{
     @Override
     public List<Element> findElements(By locator) {
         System.out.print("Find elements");
-        return super.findElements(locator);
+        return driver.findElements(locator);
     }
 }

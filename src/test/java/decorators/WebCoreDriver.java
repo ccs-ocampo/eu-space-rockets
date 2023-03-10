@@ -1,3 +1,5 @@
+package decorators;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +18,7 @@ import java.util.List;
 
 public class WebCoreDriver extends Driver{
     private WebDriver webDriver;
-    private WebDriverWait webDriverWait;
+        private WebDriverWait webDriverWait;
 
     @Override
     public void start(Browser browser) {
@@ -43,6 +45,8 @@ public class WebCoreDriver extends Driver{
                 yield new ChromeDriver();
             }
         };
+
+        webDriverWait = new WebDriverWait(webDriver, 30);
     }
 
     @Override
