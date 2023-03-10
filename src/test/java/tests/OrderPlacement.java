@@ -1,5 +1,6 @@
 package tests;
 
+import com.google.common.base.Stopwatch;
 import decorators.Browser;
 import decorators.Driver;
 import decorators.LogDriver;
@@ -12,21 +13,28 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class OrderPlacement {
 
     private static Driver driver;
+    private static Stopwatch stopwatch;
 
 
     @BeforeTest
     public void testInit(){
+        stopwatch = Stopwatch.createStarted();
         driver = new LogDriver(new WebCoreDriver());
         driver.start(Browser.CHROME);
+        System.out.printf("End browser init: %d", stopwatch.elapsed(TimeUnit.SECONDS));
+
     }
 
     @AfterTest
     public void testClean(){
         driver.quit();
+        System.out.printf("After test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
+        stopwatch.stop();
     }
 
     private String generateUniqueEmail(){
@@ -49,15 +57,16 @@ public class OrderPlacement {
         couponCodeInput.typeText(coupon);
         var applyCouponButton = driver.findElement(By.name("apply_coupon"));
         applyCouponButton.click();
-        Thread.sleep(5000);
+        driver.waitForAjax();
     }
 
     private void increaseProductQuantity (String productQuantity) throws InterruptedException {
         var quantityInput = driver.findElement(By.cssSelector("input[title='Qty']"));
         quantityInput.typeText(productQuantity);
+        driver.waitForAjax();
         var updateCartButton = driver.findElement(By.cssSelector("[value*='Update cart']"));
         updateCartButton.click();
-        Thread.sleep(5000);
+        driver.waitForAjax();
     }
 
     private void addRocketToShoppingCart(){
@@ -70,6 +79,7 @@ public class OrderPlacement {
 
     @Test
     public void validateOrderCreation() throws InterruptedException {
+        System.out.printf("Start First test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
         driver.goToURL("http://demos.bellatrix.solutions/");
         Thread.sleep(5000);
         addRocketToShoppingCart();
@@ -111,12 +121,13 @@ public class OrderPlacement {
         Thread.sleep(15000);
         var orderPlacementTitle = driver.findElement(By.cssSelector("h1.entry-title"));
         Assert.assertEquals(orderPlacementTitle.getText(), "Order received");
-
+        System.out.printf("End First test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
     }
 
 
     @Test
     public void ValidateOrderAuthenticated() throws InterruptedException {
+        System.out.printf("Start Second test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
         driver.goToURL("http://demos.bellatrix.solutions/");
         Thread.sleep(5000);
         addRocketToShoppingCart();
@@ -135,11 +146,12 @@ public class OrderPlacement {
         Thread.sleep(15000);
         var orderPlacementTitle = driver.findElement(By.cssSelector("h1.entry-title"));
         Assert.assertEquals(orderPlacementTitle.getText(), "Order received");
-
+        System.out.printf("End Second test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
     }
 
     @Test
     public void ValidateOrdersSaved() throws InterruptedException {
+        System.out.printf("Start Third test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
         driver.goToURL("http://demos.bellatrix.solutions/");
         var myAccountTab = driver.findElement(By.xpath("//ul[@class='nav-menu']//a[text()='My account']"));
         myAccountTab.click();
@@ -153,6 +165,7 @@ public class OrderPlacement {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(orderStatus.getText(), "On hold");
         softAssert.assertEquals(orderTotalAmount.getText(), "95.00");
+        System.out.printf("End Third test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
     }
 
 }

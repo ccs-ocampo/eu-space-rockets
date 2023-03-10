@@ -2,6 +2,7 @@ package decorators;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -77,5 +78,11 @@ public class WebCoreDriver extends Driver{
             elements.add(new LogElement(element));
         }
         return elements;
+    }
+
+    @Override
+    public void waitForAjax() {
+        var javascriptExecutor = (JavascriptExecutor) webDriver;
+        webDriverWait.until(d -> (Boolean)javascriptExecutor.executeScript("return window.jQuery != undefined && jQuery.active == 0"));
     }
 }

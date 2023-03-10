@@ -10,4 +10,5 @@ public abstract class Driver {
     public abstract void goToURL(String url);
     public abstract Element findElement(By locator);
     public abstract List<Element> findElements(By locator);
+    public abstract void waitForAjax();
 }
