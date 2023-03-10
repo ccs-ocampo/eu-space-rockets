@@ -7,9 +7,7 @@ import decorators.LogDriver;
 import decorators.WebCoreDriver;
 import org.openqa.selenium.*;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import java.util.UUID;
@@ -21,7 +19,7 @@ public class OrderPlacement {
     private static Stopwatch stopwatch;
 
 
-    @BeforeTest
+    @BeforeMethod
     public void testInit(){
         stopwatch = Stopwatch.createStarted();
         driver = new LogDriver(new WebCoreDriver());
@@ -30,7 +28,7 @@ public class OrderPlacement {
 
     }
 
-    @AfterTest
+    @AfterMethod
     public void testClean(){
         driver.quit();
         System.out.printf("After test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
