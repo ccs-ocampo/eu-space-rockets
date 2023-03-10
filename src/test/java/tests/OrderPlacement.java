@@ -50,6 +50,7 @@ public class OrderPlacement {
         passwordInput.typeText("Comadres3");
         var loginButton = driver.findElement(By.xpath("//button[@name ='login']"));
         loginButton.click();
+        driver.waitForAjax();
     }
 
     private void applyCoupon(String coupon) throws InterruptedException {
@@ -81,7 +82,7 @@ public class OrderPlacement {
     public void validateOrderCreation() throws InterruptedException {
         System.out.printf("Start First test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
         driver.goToURL("http://demos.bellatrix.solutions/");
-        Thread.sleep(5000);
+        driver.waitForAjax();
         addRocketToShoppingCart();
         applyCoupon("happyBirthday");
         increaseProductQuantity("2");
@@ -116,9 +117,10 @@ public class OrderPlacement {
         var createAccount = driver.findElement((By.id("createaccount")));
         createAccount.click();
         var placeOrderButton = driver.findElement(By.id("place_order"));
-        Thread.sleep(5000);
+        driver.waitForAjax();
         placeOrderButton.click();
-        Thread.sleep(15000);
+        driver.waitForAjax();
+        driver.waitUntilPageLoadsCompletely();
         var orderPlacementTitle = driver.findElement(By.cssSelector("h1.entry-title"));
         Assert.assertEquals(orderPlacementTitle.getText(), "Order received");
         System.out.printf("End First test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
@@ -140,10 +142,10 @@ public class OrderPlacement {
         var loginLink = driver.findElement(By.className("showlogin"));
         loginLink.click();
         login("joako_r@yopmail.com");
-        Thread.sleep(5000);
         var placeOrderButton = driver.findElement(By.id("place_order"));
         placeOrderButton.click();
-        Thread.sleep(15000);
+        driver.waitForAjax();
+        driver.waitUntilPageLoadsCompletely();
         var orderPlacementTitle = driver.findElement(By.cssSelector("h1.entry-title"));
         Assert.assertEquals(orderPlacementTitle.getText(), "Order received");
         System.out.printf("End Second test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
@@ -158,7 +160,7 @@ public class OrderPlacement {
         login("joako_r@yopmail.com");
         var ordersSection = driver.findElement(By.xpath("//a[contains(text(),'Orders')]"));
         ordersSection.click();
-        String orderNumber = "4181";
+        String orderNumber = "4754";
         var orderNumberRow = driver.findElement((By.xpath("//tr[.//td//a[contains(text(),'"+orderNumber+"')]]")));
         var orderStatus = driver.findElement(By.xpath("//td[@data-title='Status']"));
         var orderTotalAmount = driver.findElement(By.xpath("//td[@data-title='Total']/span"));

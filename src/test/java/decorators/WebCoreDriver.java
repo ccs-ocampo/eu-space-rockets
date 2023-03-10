@@ -85,4 +85,10 @@ public class WebCoreDriver extends Driver{
         var javascriptExecutor = (JavascriptExecutor) webDriver;
         webDriverWait.until(d -> (Boolean)javascriptExecutor.executeScript("return window.jQuery != undefined && jQuery.active == 0"));
     }
+
+    @Override
+    public void waitUntilPageLoadsCompletely() {
+        var javascriptExecutor = (JavascriptExecutor) webDriver;
+        webDriverWait.until(d -> javascriptExecutor.executeScript("return document.readyState")).toString().equals("complete");
+    }
 }

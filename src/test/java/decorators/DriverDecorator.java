@@ -40,4 +40,9 @@ public class DriverDecorator extends Driver {
     public void waitForAjax() {
         driver.waitForAjax();
     }
+
+    @Override
+    public void waitUntilPageLoadsCompletely() {
+        driver.waitUntilPageLoadsCompletely();
+    }
 }

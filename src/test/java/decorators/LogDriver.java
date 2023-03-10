@@ -38,4 +38,16 @@ public class LogDriver extends DriverDecorator {
         System.out.print("Find elements");
         return driver.findElements(locator);
     }
+
+    @Override
+    public void waitForAjax() {
+        System.out.print("Wait for AJAX");
+        driver.waitForAjax();
+    }
+
+    @Override
+    public void waitUntilPageLoadsCompletely() {
+        System.out.print("Wait for page to load completely");
+        driver.waitUntilPageLoadsCompletely();
+    }
 }
