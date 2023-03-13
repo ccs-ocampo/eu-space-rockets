@@ -1,6 +1,7 @@
 package tests;
 
 import decorators.Driver;
+import decorators.LogDriver;
 import decorators.WebCoreDriver;
 import observers.BrowserLaunchTestBehaviorObserver;
 import observers.ExecutionSubject;
@@ -17,7 +18,7 @@ public class BaseTest {
 
     static {
         executionSubject = new ExecutionSubject();
-        driver = new LoggingDriver(new WebCoreDriver());
+        driver = new LogDriver(new WebCoreDriver());
         new BrowserLaunchTestBehaviorObserver(executionSubject, driver);
     }
     
@@ -39,13 +40,13 @@ public class BaseTest {
     
     @AfterSuite
     public void afterSuite(){
-        if(drive != null){
+        if(driver != null){
             driver.quit();
         }
     }
     
     @BeforeMethod
-    public void beforeMethod(ITestResult result){
+    public void beforeMethod(ITestResult result) throws NoSuchMethodException {
         setTestResult(result);
         var testClass = this.getClass();
         var methodInfo = testClass.getMethod(getTestResult().getMethod().getMethodName());
@@ -55,7 +56,7 @@ public class BaseTest {
     }
     
     @AfterMethod
-    public void afterMethod(){
+    public void afterMethod() throws NoSuchMethodException {
         var testClass = this.getClass();
         var methodInfo = testClass.getMethod(getTestResult().getMethod().getMethodName());
         executionSubject.preTestCleanup(getTestResult(), methodInfo);

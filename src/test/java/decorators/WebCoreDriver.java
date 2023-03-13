@@ -19,7 +19,7 @@ import java.util.List;
 
 public class WebCoreDriver extends Driver{
     private WebDriver webDriver;
-        private WebDriverWait webDriverWait;
+    private WebDriverWait webDriverWait;
 
     @Override
     public void start(Browser browser) {
@@ -90,5 +90,10 @@ public class WebCoreDriver extends Driver{
     public void waitUntilPageLoadsCompletely() {
         var javascriptExecutor = (JavascriptExecutor) webDriver;
         webDriverWait.until(d -> javascriptExecutor.executeScript("return document.readyState")).toString().equals("complete");
+    }
+
+    @Override
+    public void deleteAllCookies(){
+        webDriver.manage().deleteAllCookies();
     }
 }

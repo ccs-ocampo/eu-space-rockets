@@ -1,5 +1,6 @@
 package observers;
 
+import decorators.Browser;
 import decorators.Driver;
 import org.testng.ITestResult;
 
@@ -24,6 +25,8 @@ public class BrowserLaunchTestBehaviorObserver extends BaseTestBehaviorObserver{
 
         if(shouldRestartBrowser){
             restartBrowser();
+        } else{
+            driver.deleteAllCookies();
         }
 
         previousBrowserConfiguration = currentBrowserConfiguration;
@@ -33,12 +36,13 @@ public class BrowserLaunchTestBehaviorObserver extends BaseTestBehaviorObserver{
     public void postTestCleanup(ITestResult testResult, Method memberInfo) {
         if(currentBrowserConfiguration.getBrowserBehavior() == BrowserBehavior.RESTART_ON_FAIL && testResult.getStatus() == ITestResult.FAILURE){
             restartBrowser();
+        } else {
+            driver.deleteAllCookies();
         }
 
     }
 
     private void restartBrowser() {
-        driver.quit();
         driver.start(currentBrowserConfiguration.getBrowser());
     }
 
@@ -47,7 +51,7 @@ public class BrowserLaunchTestBehaviorObserver extends BaseTestBehaviorObserver{
             return true;
         }
 
-        Boolean shouldRestartBrowser = browserConfiguration.getBrowserBehavior() == BrowserBehavior.RESTART_EVERY_TIME || browserConfiguration.getBrowser() == BrowserBehavior.NOT_SET;
+        Boolean shouldRestartBrowser = browserConfiguration.getBrowserBehavior() == BrowserBehavior.RESTART_EVERY_TIME || browserConfiguration.getBrowser() == Browser.NOT_SET;
 
         return shouldRestartBrowser;
     }
@@ -58,7 +62,7 @@ public class BrowserLaunchTestBehaviorObserver extends BaseTestBehaviorObserver{
     }
 
     private BrowserConfiguration getExecutionBrowserMethodLevel(Method memberInfo) {
-        var executionBrowserAnnotation = (ExecutionBrowser)memberInfo.getDeclaredAnnotations(ExecutionBrowser.class);
+        var executionBrowserAnnotation = (ExecutionBrowser)memberInfo.getDeclaredAnnotation(ExecutionBrowser.class);
         if(executionBrowserAnnotation == null){
             return null;
         }
@@ -67,7 +71,7 @@ public class BrowserLaunchTestBehaviorObserver extends BaseTestBehaviorObserver{
     }
 
     private BrowserConfiguration getExecutionBrowserClassLevel(Class<?> type) {
-        var executionBrowserAnnotation = (ExecutionBrowser)type.getDeclaredAnnotations(ExecutionBrowser.class);
+        var executionBrowserAnnotation = (ExecutionBrowser)type.getDeclaredAnnotation(ExecutionBrowser.class);
         if(executionBrowserAnnotation == null) {
             return null;
         }

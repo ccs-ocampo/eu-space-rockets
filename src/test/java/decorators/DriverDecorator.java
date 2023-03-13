@@ -45,4 +45,9 @@ public class DriverDecorator extends Driver {
     public void waitUntilPageLoadsCompletely() {
         driver.waitUntilPageLoadsCompletely();
     }
+
+    @Override
+    public void deleteAllCookies() {
+        driver.deleteAllCookies();
+    }
 }
