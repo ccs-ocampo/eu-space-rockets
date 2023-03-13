@@ -5,6 +5,8 @@ import decorators.Browser;
 import decorators.Driver;
 import decorators.LogDriver;
 import decorators.WebCoreDriver;
+import observers.BrowserBehavior;
+import observers.ExecutionBrowser;
 import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -13,7 +15,8 @@ import org.testng.asserts.SoftAssert;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class OrderPlacement {
+@ExecutionBrowser(browser = Browser.CHROME, browserBehavior = BrowserBehavior.RESTART_EVERY_TIME)
+public class OrderPlacement extends BaseTest{
 
     private static Driver driver;
     private static Stopwatch stopwatch;
@@ -75,7 +78,6 @@ public class OrderPlacement {
         viewCartFalcon9Button.click();
     }
 
-
     @Test
     public void validateOrderCreation() throws InterruptedException {
         System.out.printf("Start First test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
@@ -124,8 +126,8 @@ public class OrderPlacement {
         System.out.printf("End First test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
     }
 
-
     @Test
+    @ExecutionBrowser(browser = Browser.FIREFOX, browserBehavior = BrowserBehavior.REUSE_IF_STARTED)
     public void ValidateOrderAuthenticated() throws InterruptedException {
         System.out.printf("Start Second test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
         driver.goToURL("http://demos.bellatrix.solutions/");
@@ -148,6 +150,7 @@ public class OrderPlacement {
         Assert.assertEquals(orderPlacementTitle.getText(), "Order received");
         System.out.printf("End Second test: %d", stopwatch.elapsed(TimeUnit.SECONDS));
     }
+
 
     @Test
     public void ValidateOrdersSaved() throws InterruptedException {

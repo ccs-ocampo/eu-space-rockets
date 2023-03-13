@@ -1,15 +1,17 @@
 package observers;
 
+import com.beust.ah.A;
 import org.testng.ITestResult;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExecutionSubject implements TestExecutionSubject{
     private final List<TestBehaviorObserver> testBehaviorObservers;
 
-    public ExecutionSubject(List<TestBehaviorObserver> testBehaviorObservers) {
-        this.testBehaviorObservers = testBehaviorObservers;
+    public ExecutionSubject() {
+        testBehaviorObservers = new ArrayList<>();
     }
 
     @Override
