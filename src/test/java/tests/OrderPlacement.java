@@ -13,9 +13,9 @@ import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
-@ExecutionBrowser(browser = Browser.CHROME, browserBehavior = BrowserBehavior.RESTART_EVERY_TIME)
+
+@ExecutionBrowser(browser = Browser.FIREFOX, browserBehavior = BrowserBehavior.RESTART_EVERY_TIME)
 public class OrderPlacement extends BaseTest{
 
     private String generateUniqueEmail(){
@@ -103,7 +103,6 @@ public class OrderPlacement extends BaseTest{
     }
 
     @Test
-    @ExecutionBrowser(browser = Browser.FIREFOX, browserBehavior = BrowserBehavior.REUSE_IF_STARTED)
     public void ValidateOrderAuthenticated() throws InterruptedException {
         getDriver().goToURL("http://demos.bellatrix.solutions/");
         Thread.sleep(5000);

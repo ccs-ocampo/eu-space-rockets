@@ -43,6 +43,7 @@ public class BrowserLaunchTestBehaviorObserver extends BaseTestBehaviorObserver{
     }
 
     private void restartBrowser() {
+        driver.quit();
         driver.start(currentBrowserConfiguration.getBrowser());
     }
 
