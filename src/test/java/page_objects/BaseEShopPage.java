@@ -20,4 +20,11 @@ public abstract class BaseEShopPage {
     public SearchSection searchSection(){
         return new SearchSection(driver);
     }
+
+    protected abstract String getUrl();
+
+    public void open(){
+        driver.goToURL(getUrl());
+        driver.waitUntilPageLoadsCompletely();
+    }
 }

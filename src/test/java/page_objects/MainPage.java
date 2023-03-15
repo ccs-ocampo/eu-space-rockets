@@ -10,6 +10,9 @@ public class MainPage extends BaseEShopPage{
     public MainPage(Driver driver) {
         super(driver);
     }
+    protected String getUrl(){
+        return  url;
+    }
 
     private Element addFalcon9ToCartButton(){
         return driver.findElement(By.cssSelector("[data-product_id*='28']"));
@@ -19,7 +22,7 @@ public class MainPage extends BaseEShopPage{
         return driver.findElement(By.cssSelector(".post-28>a[title]"));
     }
 
-    private void addRocketToShoppingCart(){
+    public void addRocketToShoppingCart(){
         driver.goToURL(url);
         driver.waitForAjax();
         addFalcon9ToCartButton().click();

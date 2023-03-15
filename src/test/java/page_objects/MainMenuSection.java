@@ -12,7 +12,7 @@ public class MainMenuSection {
     }
 
     private Element myAccountLink() {
-        return driver.findElement(By.linkText("My Account"));
+        return driver.findElement(By.xpath("//ul[@class='nav-menu']//a[text()='My account']"));
     }
 
     public void openMyAccountPage(){

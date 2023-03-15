@@ -46,7 +46,7 @@ public class CartPage extends BaseEShopPage {
         driver.waitForAjax();
     }
 
-    private void increaseProductQuantity (String productQuantity) {
+    public void increaseProductQuantity(String productQuantity) {
         quantityInput().typeText(productQuantity);
         driver.waitForAjax();
         updateCartButton().click();

@@ -66,10 +66,10 @@ public class BaseTest {
         executionSubject.get().postTestCleanup(getTestResult(), methodInfo);
     }
 
-    private void testCleanup() {
+    protected void testCleanup() {
     }
 
-    private void testInit() {
+    protected void testInit() {
     }
 
 }
