@@ -12,14 +12,16 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
-    private static final TestExecutionSubject executionSubject;
-    private static final Driver driver;
+    private static final ThreadLocal<TestExecutionSubject> executionSubject;
+    private static final ThreadLocal<Driver> driver;
     private ITestResult result;
 
     static {
-        executionSubject = new ExecutionSubject();
-        driver = new LogDriver(new WebCoreDriver());
-        new BrowserLaunchTestBehaviorObserver(executionSubject, driver);
+        executionSubject = new ThreadLocal<>();
+        executionSubject.set(new ExecutionSubject());
+        driver = new ThreadLocal<>();
+        driver.set(new LogDriver(new WebCoreDriver()));
+        new BrowserLaunchTestBehaviorObserver(executionSubject.get(), driver.get());
     }
     
     public String getTestName(){
@@ -35,13 +37,13 @@ public class BaseTest {
     }
     
     public Driver getDriver(){
-        return driver;
+        return driver.get();
     }
     
     @AfterSuite
     public void afterSuite(){
-        if(driver != null){
-            driver.quit();
+        if(driver.get() != null){
+            driver.get().quit();
         }
     }
     
@@ -50,18 +52,18 @@ public class BaseTest {
         setTestResult(result);
         var testClass = this.getClass();
         var methodInfo = testClass.getMethod(getTestResult().getMethod().getMethodName());
-        executionSubject.preTestInit(getTestResult(), methodInfo);
+        executionSubject.get().preTestInit(getTestResult(), methodInfo);
         testInit();
-        executionSubject.postTestInit(getTestResult(), methodInfo);
+        executionSubject.get().postTestInit(getTestResult(), methodInfo);
     }
     
     @AfterMethod
     public void afterMethod() throws NoSuchMethodException {
         var testClass = this.getClass();
         var methodInfo = testClass.getMethod(getTestResult().getMethod().getMethodName());
-        executionSubject.preTestCleanup(getTestResult(), methodInfo);
+        executionSubject.get().preTestCleanup(getTestResult(), methodInfo);
         testCleanup();
-        executionSubject.postTestCleanup(getTestResult(), methodInfo);
+        executionSubject.get().postTestCleanup(getTestResult(), methodInfo);
     }
 
     private void testCleanup() {

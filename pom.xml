@@ -18,6 +18,7 @@
         <extentreports.version>5.0.9</extentreports.version>
         <log4j-api.version>2.18.0</log4j-api.version>
         <slf4j-simple.version>1.7.36</slf4j-simple.version>
+        <browsermob-proxy.version>2.1.5</browsermob-proxy.version>
     </properties>
 
     <dependencies>
@@ -36,6 +37,13 @@
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.lightbody.bmp</groupId>
+            <artifactId>browsermob-proxy</artifactId>
+            <version>${browsermob-proxy.version}</version>
+            <type>pom</type>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>

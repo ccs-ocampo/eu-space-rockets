@@ -8,13 +8,13 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 public class BrowserLaunchTestBehaviorObserver extends BaseTestBehaviorObserver{
-    private final Driver driver;
+    private final ThreadLocal<Driver> driver = new ThreadLocal<>();
     private BrowserConfiguration currentBrowserConfiguration;
     private BrowserConfiguration previousBrowserConfiguration;
 
     public BrowserLaunchTestBehaviorObserver(TestExecutionSubject testExecutionSubject, Driver driver) {
         super(testExecutionSubject);
-        this.driver = driver;
+        this.driver.set(driver);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class BrowserLaunchTestBehaviorObserver extends BaseTestBehaviorObserver{
         if(shouldRestartBrowser){
             restartBrowser();
         } else{
-            driver.deleteAllCookies();
+            driver.get().deleteAllCookies();
         }
 
         previousBrowserConfiguration = currentBrowserConfiguration;
@@ -37,14 +37,14 @@ public class BrowserLaunchTestBehaviorObserver extends BaseTestBehaviorObserver{
         if(currentBrowserConfiguration.getBrowserBehavior() == BrowserBehavior.RESTART_ON_FAIL && testResult.getStatus() == ITestResult.FAILURE){
             restartBrowser();
         } else {
-            driver.deleteAllCookies();
+            driver.get().deleteAllCookies();
         }
 
     }
 
     private void restartBrowser() {
-        driver.quit();
-        driver.start(currentBrowserConfiguration.getBrowser());
+        driver.get().quit();
+        driver.get().start(currentBrowserConfiguration.getBrowser());
     }
 
     private Boolean ShouldRestartBrowser(BrowserConfiguration browserConfiguration) {

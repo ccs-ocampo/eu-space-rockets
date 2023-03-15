@@ -9,13 +9,14 @@ import observers.BrowserBehavior;
 import observers.ExecutionBrowser;
 import org.openqa.selenium.*;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import java.util.UUID;
 
 
-@ExecutionBrowser(browser = Browser.FIREFOX, browserBehavior = BrowserBehavior.RESTART_EVERY_TIME)
+@ExecutionBrowser(browser = Browser.CHROME, browserBehavior = BrowserBehavior.RESTART_EVERY_TIME)
 public class OrderPlacement extends BaseTest{
 
     private String generateUniqueEmail(){
@@ -141,5 +142,4 @@ public class OrderPlacement extends BaseTest{
         softAssert.assertEquals(orderStatus.getText(), "On hold");
         softAssert.assertEquals(orderTotalAmount.getText(), "95.00");
     }
-
 }
