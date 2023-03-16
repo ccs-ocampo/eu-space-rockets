@@ -13,4 +13,5 @@ public abstract class Element {
     public abstract void click();
     public abstract String getAttribute(String attributeName);
 
+    public abstract void waitToExists();
 }

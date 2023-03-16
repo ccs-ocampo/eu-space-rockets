@@ -1,6 +1,7 @@
 package decorators;
 
-public enum Browser {
+public enum Browser
+{
     NOT_SET,
     CHROME,
     FIREFOX,

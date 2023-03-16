@@ -4,10 +4,10 @@ import decorators.Driver;
 import decorators.Element;
 import org.openqa.selenium.By;
 
-public class MainPage extends BaseEShopPage{
+public class MainPageBase extends BaseEShopPage {
     private final String url = "http://demos.bellatrix.solutions/";
 
-    public MainPage(Driver driver) {
+    public MainPageBase(Driver driver) {
         super(driver);
     }
     protected String getUrl(){
@@ -27,5 +27,10 @@ public class MainPage extends BaseEShopPage{
         driver.waitForAjax();
         addFalcon9ToCartButton().click();
         viewCartFalcon9Button().click();
+    }
+
+    @Override
+    protected void waitForPageLoad() {
+        addFalcon9ToCartButton().waitToExists();
     }
 }

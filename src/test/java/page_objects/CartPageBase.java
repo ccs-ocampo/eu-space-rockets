@@ -3,12 +3,11 @@ package page_objects;
 import decorators.Driver;
 import decorators.Element;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
-public class CartPage extends BaseEShopPage {
+public class CartPageBase extends BaseEShopPage {
     private final String URL = "http://demos.bellatrix.solutions/";
 
-    public CartPage(Driver driver) {
+    public CartPageBase(Driver driver) {
         super(driver);
     }
 
@@ -63,6 +62,11 @@ public class CartPage extends BaseEShopPage {
 
     public BreadcrumbSection breadcrumbSection() {
         return new BreadcrumbSection(driver);
+    }
+
+    @Override
+    protected void waitForPageLoad() {
+        couponCodeTextField().waitToExists();
     }
 
 }

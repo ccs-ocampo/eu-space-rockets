@@ -1,8 +1,6 @@
 package observers;
 
-import com.beust.ah.A;
 import org.testng.ITestResult;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,28 +31,28 @@ public class ExecutionSubject implements TestExecutionSubject{
 
     @Override
     public void postTestInit(ITestResult result, Method memberInfo) {
-        for(var currentObserver: testBehaviorObservers){
+        for (var currentObserver : testBehaviorObservers) {
             currentObserver.preTestInit(result, memberInfo);
         }
     }
 
     @Override
     public void preTestCleanup(ITestResult result, Method memberInfo) {
-        for(var currentObserver: testBehaviorObservers){
+        for (var currentObserver : testBehaviorObservers) {
             currentObserver.preTestCleanup(result, memberInfo);
         }
     }
 
     @Override
     public void postTestCleanup(ITestResult result, Method memberInfo) {
-        for(var currentObserver: testBehaviorObservers){
+        for (var currentObserver : testBehaviorObservers) {
             currentObserver.preTestCleanup(result, memberInfo);
         }
     }
 
     @Override
     public void testInstantiated(Method memberInfo) {
-        for(var currentObserver: testBehaviorObservers){
+        for (var currentObserver : testBehaviorObservers) {
             currentObserver.testInstantiated(memberInfo);
         }
     }

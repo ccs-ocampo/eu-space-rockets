@@ -25,6 +25,8 @@ public abstract class BaseEShopPage {
 
     public void open(){
         driver.goToURL(getUrl());
-        driver.waitUntilPageLoadsCompletely();
+        waitForPageLoad();
     }
+
+    protected abstract void waitForPageLoad();
 }
