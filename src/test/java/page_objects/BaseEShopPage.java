@@ -1,12 +1,19 @@
 package page_objects;
 
 import decorators.Driver;
+import page_objects.page_elements.BaseElements;
+import page_objects.reflection.NewInstanceFactory;
 
-public abstract class BaseEShopPage {
-    protected final Driver driver;
+
+public abstract class BaseEShopPage<ElementsT extends BaseElements> {
+    public final Driver driver;
 
     public BaseEShopPage(Driver driver) {
         this.driver = driver;
+    }
+
+    protected ElementsT elements(){
+        return NewInstanceFactory.<ElementsT>createByTypeParameter(getClass(), 0, driver);
     }
 
     public CartInfoSection cartInfoSection(){

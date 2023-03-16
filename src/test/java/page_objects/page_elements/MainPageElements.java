@@ -4,11 +4,9 @@ import decorators.Driver;
 import decorators.Element;
 import org.openqa.selenium.By;
 
-public class MainPageElements {
-    private final Driver driver;
-
+public class MainPageElements extends BaseElements {
     public MainPageElements(Driver driver) {
-        this.driver = driver;
+        super(driver);
     }
     public Element addFalcon9ToCartButton(){
         return driver.findElement(By.cssSelector("[data-product_id*='28']"));

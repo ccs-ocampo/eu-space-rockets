@@ -4,11 +4,9 @@ import decorators.Driver;
 import decorators.Element;
 import org.openqa.selenium.By;
 
-public class CartPageElements {
-    private final Driver driver;
-
+public class CartPageElements extends BaseElements{
     public CartPageElements(Driver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public Element couponCodeTextField(){

@@ -3,7 +3,7 @@ package page_objects;
 import decorators.Driver;
 import page_objects.page_elements.MainPageElements;
 
-public class MainPage extends BaseEShopPage {
+public class MainPage extends BaseEShopPage<MainPageElements> {
     private final String url = "http://demos.bellatrix.solutions/";
 
     public MainPage(Driver driver) {
@@ -12,10 +12,6 @@ public class MainPage extends BaseEShopPage {
 
     protected String getUrl(){
         return  url;
-    }
-
-    private MainPageElements elements(){
-        return new MainPageElements(driver);
     }
 
     public void addRocketToShoppingCart(){

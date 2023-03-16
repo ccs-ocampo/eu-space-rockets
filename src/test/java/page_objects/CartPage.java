@@ -3,7 +3,7 @@ package page_objects;
 import decorators.Driver;
 import page_objects.page_elements.CartPageElements;
 
-public class CartPage extends BaseEShopPage {
+public class CartPage extends BaseEShopPage<CartPageElements> {
     private final String URL = "http://demos.bellatrix.solutions/";
 
     public CartPage(Driver driver) {
@@ -12,10 +12,6 @@ public class CartPage extends BaseEShopPage {
 
     protected String getUrl(){
         return  "http://demos.bellatrix.solutions/cart";
-    }
-
-    private CartPageElements elements(){
-        return new CartPageElements(driver);
     }
 
     public void applyCoupon(String coupon) {
