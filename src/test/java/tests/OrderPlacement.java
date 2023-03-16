@@ -7,21 +7,21 @@ import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
-import page_objects.CartPageBase;
-import page_objects.MainPageBase;
+import page_objects.CartPage;
+import page_objects.MainPage;
 
 import java.util.UUID;
 
 
 @ExecutionBrowser(browser = Browser.CHROME, browserBehavior = BrowserBehavior.RESTART_EVERY_TIME)
 public class OrderPlacement extends BaseTest{
-    private MainPageBase mainPage;
-    private CartPageBase cartPage;
+    private MainPage mainPage;
+    private CartPage cartPage;
 
     @Override
     protected void testInit() {
-        mainPage = new MainPageBase(getDriver());
-        cartPage = new CartPageBase(getDriver());
+        mainPage = new MainPage(getDriver());
+        cartPage = new CartPage(getDriver());
 
     }
 
