@@ -1,8 +1,11 @@
 package decorators;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class DriverDecorator extends Driver {
     protected final Driver driver;
@@ -47,7 +50,27 @@ public class DriverDecorator extends Driver {
     }
 
     @Override
+    public void addCookie(Cookie cookie) {
+        driver.addCookie(cookie);
+    }
+
+    @Override
     public void deleteAllCookies() {
         driver.deleteAllCookies();
+    }
+
+    @Override
+    public void deleteCookie(String cookieName) {
+        driver.deleteCookie(cookieName);
+    }
+
+    @Override
+    public List<Cookie> getAllCookies() {
+        return driver.getAllCookies();
+    }
+
+    @Override
+    public String getCookie(String cookieName) {
+        return driver.getCookie(cookieName);
     }
 }

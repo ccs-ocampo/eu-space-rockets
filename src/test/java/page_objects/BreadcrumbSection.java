@@ -1,11 +1,12 @@
 package page_objects;
 
 import decorators.Driver;
+import decorators.interface_segregation.ElementFindService;
 
 public class BreadcrumbSection {
-    private final Driver driver;
+    private final ElementFindService elementFindService;
 
-    public BreadcrumbSection(Driver driver) {
-        this.driver = driver;
+    public BreadcrumbSection(ElementFindService elementFindService) {
+        this.elementFindService = elementFindService;
     }
 }

@@ -1,11 +1,10 @@
 package page_objects;
 
-import decorators.Driver;
+import decorators.interface_segregation.ElementFindService;
 
 public class CartInfoSection {
-    private final Driver driver;
-
-    public CartInfoSection(Driver driver) {
-        this.driver = driver;
+    private final ElementFindService elementFindService;
+    public CartInfoSection(ElementFindService elementFindService) {
+        this.elementFindService = elementFindService;
     }
 }

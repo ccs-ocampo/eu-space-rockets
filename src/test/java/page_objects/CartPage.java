@@ -1,13 +1,17 @@
 package page_objects;
 
 import decorators.Driver;
+import decorators.interface_segregation.BrowseService;
+import decorators.interface_segregation.ElementFindService;
+import decorators.interface_segregation.NavigationService;
 import page_objects.page_elements.CartPageElements;
 
 public class CartPage extends BaseEShopPage {
-    private final String URL = "http://demos.bellatrix.solutions/";
+    private final BrowseService browseService;
 
-    public CartPage(Driver driver) {
-        super(driver);
+    public CartPage(NavigationService navigationService, ElementFindService elementFindService, BrowseService browseService) {
+        super(navigationService, elementFindService);
+        this.browseService = browseService;
     }
 
     protected String getUrl(){
@@ -15,20 +19,20 @@ public class CartPage extends BaseEShopPage {
     }
 
     private CartPageElements elements(){
-        return new CartPageElements(driver);
+        return new CartPageElements(elementFindService);
     }
 
     public void applyCoupon(String coupon) {
         elements().couponCodeTextField().typeText(coupon);
         elements().applyCouponButton().click();
-        driver.waitForAjax();
+        browseService.waitForAjax();
     }
 
     public void increaseProductQuantity(String productQuantity) {
         elements().quantityInput().typeText(productQuantity);
-        driver.waitForAjax();
+        browseService.waitForAjax();
         elements().updateCartButton().click();
-        driver.waitForAjax();
+        browseService.waitForAjax();
     }
 
     public String getCartTotal(){
@@ -40,7 +44,7 @@ public class CartPage extends BaseEShopPage {
     }
 
     public BreadcrumbSection breadcrumbSection() {
-        return new BreadcrumbSection(driver);
+        return new BreadcrumbSection(elementFindService);
     }
 
     @Override

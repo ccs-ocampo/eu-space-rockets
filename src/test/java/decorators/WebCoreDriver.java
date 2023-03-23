@@ -1,10 +1,7 @@
 package decorators;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -95,7 +92,27 @@ public class WebCoreDriver extends Driver{
     }
 
     @Override
+    public void addCookie(Cookie cookie) {
+        webDriver.manage().addCookie(cookie);
+    }
+
+    @Override
     public void deleteAllCookies(){
         webDriver.manage().deleteAllCookies();
+    }
+
+    @Override
+    public void deleteCookie(String cookieName) {
+        webDriver.manage().deleteCookieNamed(cookieName);
+    }
+
+    @Override
+    public List<Cookie> getAllCookies() {
+        return (List<Cookie>) webDriver.manage().getCookies();
+    }
+
+    @Override
+    public String getCookie(String cookieName) {
+        return webDriver.manage().getCookieNamed(cookieName).toString();
     }
 }

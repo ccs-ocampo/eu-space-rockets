@@ -1,11 +1,12 @@
 package page_objects;
 
 import decorators.Driver;
+import decorators.interface_segregation.ElementFindService;
 
 public class SearchSection {
-    private final Driver driver;
+    private final ElementFindService elementFindService;
 
-    public SearchSection(Driver driver) {
-        this.driver = driver;
+    public SearchSection(ElementFindService elementFindService) {
+        this.elementFindService = elementFindService;
     }
 }

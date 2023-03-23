@@ -2,17 +2,18 @@ package page_objects;
 
 import decorators.Driver;
 import decorators.Element;
+import decorators.interface_segregation.ElementFindService;
 import org.openqa.selenium.By;
 
 public class MainMenuSection {
-    private final Driver driver;
+    private final ElementFindService elementFindService;
 
-    public MainMenuSection(Driver driver) {
-        this.driver = driver;
+    public MainMenuSection(ElementFindService elementFindService) {
+        this.elementFindService = elementFindService;
     }
 
     private Element myAccountLink() {
-        return driver.findElement(By.xpath("//ul[@class='nav-menu']//a[text()='My account']"));
+        return elementFindService.findElement(By.xpath("//ul[@class='nav-menu']//a[text()='My account']"));
     }
 
     public void openMyAccountPage(){

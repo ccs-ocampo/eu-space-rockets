@@ -1,30 +1,33 @@
 package page_objects;
 
-import decorators.Driver;
+import decorators.interface_segregation.ElementFindService;
+import decorators.interface_segregation.NavigationService;
 
 public abstract class BaseEShopPage {
-    protected final Driver driver;
+    protected final NavigationService navigationService;
+    protected final ElementFindService elementFindService;
 
-    public BaseEShopPage(Driver driver) {
-        this.driver = driver;
+    public BaseEShopPage(NavigationService navigationService, ElementFindService elementFindService) {
+        this.navigationService = navigationService;
+        this.elementFindService = elementFindService;
     }
 
     public CartInfoSection cartInfoSection(){
-        return new CartInfoSection(driver);
+        return new CartInfoSection(elementFindService);
     }
 
     public MainMenuSection mainMenuSection(){
-        return new MainMenuSection(driver);
+        return new MainMenuSection(elementFindService);
     }
 
     public SearchSection searchSection(){
-        return new SearchSection(driver);
+        return new SearchSection(elementFindService);
     }
 
     protected abstract String getUrl();
 
     public void open(){
-        driver.goToURL(getUrl());
+        navigationService.goToURL(getUrl());
         waitForPageLoad();
     }
 

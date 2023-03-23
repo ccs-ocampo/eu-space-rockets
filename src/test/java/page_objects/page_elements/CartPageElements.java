@@ -1,37 +1,37 @@
 package page_objects.page_elements;
 
-import decorators.Driver;
 import decorators.Element;
+import decorators.interface_segregation.ElementFindService;
 import org.openqa.selenium.By;
 
 public class CartPageElements {
-    private final Driver driver;
+    private final ElementFindService elementFindService;
 
-    public CartPageElements(Driver driver) {
-        this.driver = driver;
+    public CartPageElements(ElementFindService elementFindService) {
+        this.elementFindService = elementFindService;
     }
 
     public Element couponCodeTextField(){
-        return  driver.findElement(By.id("coupon_code"));
+        return  elementFindService.findElement(By.id("coupon_code"));
     }
 
     public Element applyCouponButton(){
-        return driver.findElement(By.name("apply_coupon"));
+        return elementFindService.findElement(By.name("apply_coupon"));
     }
 
     public Element quantityInput(){
-        return driver.findElement(By.cssSelector("input[title='Qty']"));
+        return elementFindService.findElement(By.cssSelector("input[title='Qty']"));
     }
 
     public Element updateCartButton(){
-        return driver.findElement(By.cssSelector("[value*='Update cart']"));
+        return elementFindService.findElement(By.cssSelector("[value*='Update cart']"));
     }
 
     public Element cartTotal(){
-        return driver.findElement(By.xpath("//td[@data-title='Total']//bdi"));
+        return elementFindService.findElement(By.xpath("//td[@data-title='Total']//bdi"));
     }
 
     public Element proceedToCheckoutButton(){
-        return driver.findElement(By.cssSelector(".checkout-button"));
+        return elementFindService.findElement(By.cssSelector(".checkout-button"));
     }
 }
