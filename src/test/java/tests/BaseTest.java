@@ -20,7 +20,7 @@ public class BaseTest {
         executionSubject = new ThreadLocal<>();
         executionSubject.set(new ExecutionSubject());
         driver = new ThreadLocal<>();
-        driver.set(new LogDriver(new WebCoreDriver()));
+        driver.set(LogDriver.getInstance());
         new BrowserLaunchTestBehaviorObserver(executionSubject.get(), driver.get());
     }
     

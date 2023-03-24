@@ -1,12 +1,21 @@
 package decorators;
 
 import org.openqa.selenium.By;
+import page_objects.singleton_factory.SingletonFactory;
 
 import java.util.List;
 
 public class LogDriver extends DriverDecorator {
-    public LogDriver(Driver driver) {
+    private static LogDriver instance;
+    private LogDriver(Driver driver) {
         super(driver);
+    }
+
+    public static LogDriver getInstance(){
+        if(instance == null){
+            instance = new LogDriver(new WebCoreDriver());
+        }
+        return instance;
     }
 
     @Override

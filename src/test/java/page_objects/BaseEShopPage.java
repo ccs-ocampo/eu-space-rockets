@@ -1,5 +1,6 @@
 package page_objects;
 
+import decorators.LogDriver;
 import decorators.interface_segregation.ElementFindService;
 import decorators.interface_segregation.NavigationService;
 
@@ -7,9 +8,9 @@ public abstract class BaseEShopPage {
     protected final NavigationService navigationService;
     protected final ElementFindService elementFindService;
 
-    public BaseEShopPage(NavigationService navigationService, ElementFindService elementFindService) {
-        this.navigationService = navigationService;
-        this.elementFindService = elementFindService;
+    protected BaseEShopPage() {
+        this.navigationService = LogDriver.getInstance();
+        this.elementFindService = LogDriver.getInstance();;
     }
 
     public CartInfoSection cartInfoSection(){

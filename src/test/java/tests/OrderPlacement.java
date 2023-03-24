@@ -1,6 +1,7 @@
 package tests;
 
 import decorators.Browser;
+import decorators.LogDriver;
 import observers.BrowserBehavior;
 import observers.ExecutionBrowser;
 import org.openqa.selenium.*;
@@ -15,13 +16,12 @@ import java.util.UUID;
 
 @ExecutionBrowser(browser = Browser.CHROME, browserBehavior = BrowserBehavior.RESTART_EVERY_TIME)
 public class OrderPlacement extends BaseTest{
-    private MainPage mainPage;
-    private CartPage cartPage;
 
     @Override
     protected void testInit() {
-        mainPage = new MainPage(getDriver());
-        cartPage = new CartPage(getDriver());
+        LogDriver.getInstance().start(Browser.CHROME);
+        MainPage.getInstance().open();
+        CartPage.getInstance().open();
 
     }
 
@@ -47,14 +47,14 @@ public class OrderPlacement extends BaseTest{
 
     @Test
     public void validateOrderCreation() {
-        mainPage.open();
+        MainPage.getInstance().open();
         getDriver().waitForAjax();
-        mainPage.addRocketToShoppingCart();
-        cartPage.applyCoupon("happyBirthday");
-        cartPage.increaseProductQuantity("2");
-        var cartTotal = cartPage.getCartTotal();
+        MainPage.getInstance().addRocketToShoppingCart();
+        CartPage.getInstance().applyCoupon("happyBirthday");
+        CartPage.getInstance().increaseProductQuantity("2");
+        var cartTotal = CartPage.getInstance().getCartTotal();
         Assert.assertEquals(cartTotal, "114.00€");
-        cartPage.clickProceedToCheckout();
+        CartPage.getInstance().clickProceedToCheckout();
         var firstnameField = getDriver().findElement(By.id("billing_first_name"));
         firstnameField.typeText("Tackine");
         var lastnameField = getDriver().findElement(By.id("billing_last_name"));
@@ -92,13 +92,13 @@ public class OrderPlacement extends BaseTest{
 
     @Test
     public void ValidateOrderAuthenticated() throws InterruptedException {
-        mainPage.open();
-        mainPage.addRocketToShoppingCart();
-        cartPage.applyCoupon("happyBirthday");
-        cartPage.increaseProductQuantity("2");
-        var cartTotal = cartPage.getCartTotal();
+        MainPage.getInstance().open();
+        MainPage.getInstance().addRocketToShoppingCart();
+        CartPage.getInstance().applyCoupon("happyBirthday");
+        CartPage.getInstance().increaseProductQuantity("2");
+        var cartTotal = CartPage.getInstance().getCartTotal();
         Assert.assertEquals(cartTotal, "114.00€");
-        cartPage.clickProceedToCheckout();
+        CartPage.getInstance().clickProceedToCheckout();
         var loginLink = getDriver().findElement(By.className("showlogin"));
         loginLink.click();
         login("joako_r@yopmail.com");
@@ -113,8 +113,8 @@ public class OrderPlacement extends BaseTest{
 
     @Test
     public void ValidateOrdersSaved() throws InterruptedException {
-        mainPage.open();
-        mainPage.mainMenuSection().openMyAccountPage();
+        MainPage.getInstance().open();
+        MainPage.getInstance().mainMenuSection().openMyAccountPage();
         login("joako_r@yopmail.com");
         var ordersSection = getDriver().findElement(By.xpath("//a[contains(text(),'Orders')]"));
         ordersSection.click();

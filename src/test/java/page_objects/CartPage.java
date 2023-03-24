@@ -1,17 +1,21 @@
 package page_objects;
 
 import decorators.Driver;
+import decorators.LogDriver;
 import decorators.interface_segregation.BrowseService;
 import decorators.interface_segregation.ElementFindService;
 import decorators.interface_segregation.NavigationService;
 import page_objects.page_elements.CartPageElements;
+import page_objects.singleton_factory.SingletonFactory;
 
 public class CartPage extends BaseEShopPage {
-    private final BrowseService browseService;
+    private final BrowseService browseService = LogDriver.getInstance();
 
-    public CartPage(NavigationService navigationService, ElementFindService elementFindService, BrowseService browseService) {
-        super(navigationService, elementFindService);
-        this.browseService = browseService;
+    private CartPage() {
+    }
+
+    public static CartPage getInstance(){
+        return SingletonFactory.getInstance(CartPage.class);
     }
 
     protected String getUrl(){

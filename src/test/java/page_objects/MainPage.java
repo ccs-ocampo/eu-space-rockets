@@ -1,17 +1,19 @@
 package page_objects;
 
+import decorators.LogDriver;
 import decorators.interface_segregation.BrowseService;
-import decorators.interface_segregation.ElementFindService;
-import decorators.interface_segregation.NavigationService;
 import page_objects.page_elements.MainPageElements;
+import page_objects.singleton_factory.SingletonFactory;
 
 public class MainPage extends BaseEShopPage {
-    private final BrowseService browseService;
+    private final BrowseService browseService = LogDriver.getInstance();
     private final String url = "http://demos.bellatrix.solutions/";
 
-    public MainPage(NavigationService navigationService, ElementFindService elementFindService, BrowseService browseService) {
-        super(navigationService, elementFindService);
-        this.browseService = browseService;
+    private MainPage() {
+    }
+
+    public static MainPage getInstance(){
+        return SingletonFactory.getInstance(MainPage.class);
     }
 
     protected String getUrl(){
