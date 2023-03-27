@@ -22,25 +22,28 @@ public class CartPage extends BaseEShopPage {
         return new CartPageElements(elementFindService);
     }
 
-    public void applyCoupon(String coupon) {
+    public CartPage applyCoupon(String coupon) {
         elements().couponCodeTextField().typeText(coupon);
         elements().applyCouponButton().click();
         browseService.waitForAjax();
+        return this;
     }
 
-    public void increaseProductQuantity(String productQuantity) {
+    public CartPage increaseProductQuantity(String productQuantity) {
         elements().quantityInput().typeText(productQuantity);
         browseService.waitForAjax();
         elements().updateCartButton().click();
         browseService.waitForAjax();
+        return this;
     }
 
     public String getCartTotal(){
         return elements().cartTotal().getText();
     }
 
-    public void clickProceedToCheckout(){
+    public CartPage clickProceedToCheckout(){
         elements().proceedToCheckoutButton().click();
+        return this;
     }
 
     public BreadcrumbSection breadcrumbSection() {

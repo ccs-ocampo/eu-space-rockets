@@ -1,6 +1,9 @@
 package tests;
 
 import decorators.Browser;
+import decorators.interface_segregation.BrowseService;
+import decorators.interface_segregation.ElementFindService;
+import decorators.interface_segregation.NavigationService;
 import observers.BrowserBehavior;
 import observers.ExecutionBrowser;
 import org.openqa.selenium.*;
@@ -20,8 +23,8 @@ public class OrderPlacement extends BaseTest{
 
     @Override
     protected void testInit() {
-        mainPage = new MainPage(getDriver());
-        cartPage = new CartPage(getDriver());
+        mainPage = new MainPage((NavigationService) getDriver(), (ElementFindService) getDriver(), (BrowseService) getDriver());
+        cartPage = new CartPage((NavigationService) getDriver(), (ElementFindService) getDriver(), (BrowseService) getDriver());
 
     }
 
@@ -50,8 +53,8 @@ public class OrderPlacement extends BaseTest{
         mainPage.open();
         getDriver().waitForAjax();
         mainPage.addRocketToShoppingCart();
-        cartPage.applyCoupon("happyBirthday");
-        cartPage.increaseProductQuantity("2");
+        cartPage.applyCoupon("happyBirthday")
+            .increaseProductQuantity("2");
         var cartTotal = cartPage.getCartTotal();
         Assert.assertEquals(cartTotal, "114.00€");
         cartPage.clickProceedToCheckout();
@@ -94,8 +97,8 @@ public class OrderPlacement extends BaseTest{
     public void ValidateOrderAuthenticated() throws InterruptedException {
         mainPage.open();
         mainPage.addRocketToShoppingCart();
-        cartPage.applyCoupon("happyBirthday");
-        cartPage.increaseProductQuantity("2");
+        cartPage.applyCoupon("happyBirthday")
+            .increaseProductQuantity("2");
         var cartTotal = cartPage.getCartTotal();
         Assert.assertEquals(cartTotal, "114.00€");
         cartPage.clickProceedToCheckout();

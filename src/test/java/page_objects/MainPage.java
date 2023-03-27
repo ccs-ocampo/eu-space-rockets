@@ -22,11 +22,12 @@ public class MainPage extends BaseEShopPage {
         return new MainPageElements(elementFindService);
     }
 
-    public void addRocketToShoppingCart(){
+    public MainPage addRocketToShoppingCart(){
         navigationService.goToURL(url);
         browseService.waitForAjax();
         elements().addFalcon9ToCartButton().click();
         elements().viewCartFalcon9Button().click();
+        return this;
     }
 
     @Override
