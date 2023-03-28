@@ -39,11 +39,11 @@ public class OrderPlacement extends BaseTest{
     }
 
     private void login(String username){
-        var usernameInput = getDriver().findElement(By.id("username"));
+        var usernameInput = getDriver().findById("username");
         usernameInput.typeText(username);
-        var passwordInput = getDriver().findElement(By.id("password"));
+        var passwordInput = getDriver().findById("password");
         passwordInput.typeText("Comadres3");
-        var loginButton = getDriver().findElement(By.xpath("//button[@name ='login']"));
+        var loginButton = getDriver().findByXPath("//button[@name ='login']");
         loginButton.click();
         getDriver().waitForAjax();
     }
@@ -58,38 +58,38 @@ public class OrderPlacement extends BaseTest{
         var cartTotal = cartPage.getCartTotal();
         Assert.assertEquals(cartTotal, "114.00€");
         cartPage.clickProceedToCheckout();
-        var firstnameField = getDriver().findElement(By.id("billing_first_name"));
+        var firstnameField = getDriver().findById("billing_first_name");
         firstnameField.typeText("Tackine");
-        var lastnameField = getDriver().findElement(By.id("billing_last_name"));
+        var lastnameField = getDriver().findById("billing_last_name");
         lastnameField.typeText("Roiveira");
-        var countryDropdown = getDriver().findElement(By.id("select2-billing_country-container"));
+        var countryDropdown = getDriver().findById("select2-billing_country-container");
         countryDropdown.click();
-        var countrySearch = getDriver().findElement(By.className("select2-search__field"));
+        var countrySearch = getDriver().findByClass("select2-search__field");
         countrySearch.typeText("United States");
         countrySearch.typeKey(Keys.ENTER);
-        var streetAddress = getDriver().findElement(By.id("billing_address_1"));
+        var streetAddress = getDriver().findById("billing_address_1");
         streetAddress.typeText("Rodeo Rd.");
-        var cityAddressField = getDriver().findElement(By.id("billing_city"));
+        var cityAddressField = getDriver().findById("billing_city");
         cityAddressField.typeText("Hidalgo");
-        var stateDropdown = getDriver().findElement(By.id("select2-billing_state-container"));
+        var stateDropdown = getDriver().findById("select2-billing_state-container");
         stateDropdown.click();
-        var stateSearch = getDriver().findElement(By.className("select2-search__field"));
+        var stateSearch = getDriver().findByClass("select2-search__field");
         stateSearch.typeText("Texas");
         stateSearch.typeKey(Keys.ENTER);
-        var postalCodeField = getDriver().findElement(By.id("billing_postcode"));
+        var postalCodeField = getDriver().findById("billing_postcode");
         postalCodeField.typeText("77494");
-        var phoneField = getDriver().findElement(By.id("billing_phone"));
+        var phoneField = getDriver().findById("billing_phone");
         phoneField.typeText("1234543222");
-        var emailField = getDriver().findElement(By.id("billing_email"));
+        var emailField = getDriver().findById("billing_email");
         emailField.typeText(generateUniqueEmail());
-        var createAccount = getDriver().findElement((By.id("createaccount")));
+        var createAccount = getDriver().findById("createaccount");
         createAccount.click();
-        var placeOrderButton = getDriver().findElement(By.id("place_order"));
+        var placeOrderButton = getDriver().findById("place_order");
         getDriver().waitForAjax();
         placeOrderButton.click();
         getDriver().waitForAjax();
         getDriver().waitUntilPageLoadsCompletely();
-        var orderPlacementTitle = getDriver().findElement(By.cssSelector("h1.entry-title"));
+        var orderPlacementTitle = getDriver().findByCss("h1.entry-title");
         Assert.assertEquals(orderPlacementTitle.getText(), "Order received");
     }
 
@@ -102,14 +102,14 @@ public class OrderPlacement extends BaseTest{
         var cartTotal = cartPage.getCartTotal();
         Assert.assertEquals(cartTotal, "114.00€");
         cartPage.clickProceedToCheckout();
-        var loginLink = getDriver().findElement(By.className("showlogin"));
+        var loginLink = getDriver().findByClass("showlogin");
         loginLink.click();
         login("joako_r@yopmail.com");
-        var placeOrderButton = getDriver().findElement(By.id("place_order"));
+        var placeOrderButton = getDriver().findById("place_order");
         placeOrderButton.click();
         getDriver().waitForAjax();
         getDriver().waitUntilPageLoadsCompletely();
-        var orderPlacementTitle = getDriver().findElement(By.cssSelector("h1.entry-title"));
+        var orderPlacementTitle = getDriver().findByCss("h1.entry-title");
         Assert.assertEquals(orderPlacementTitle.getText(), "Order received");
     }
 
@@ -119,12 +119,12 @@ public class OrderPlacement extends BaseTest{
         mainPage.open();
         mainPage.mainMenuSection().openMyAccountPage();
         login("joako_r@yopmail.com");
-        var ordersSection = getDriver().findElement(By.xpath("//a[contains(text(),'Orders')]"));
+        var ordersSection = getDriver().findByXPath("//a[contains(text(),'Orders')]");
         ordersSection.click();
         String orderNumber = "4788";
-        var orderNumberRow = getDriver().findElement((By.xpath("//tr[.//td//a[contains(text(),'"+orderNumber+"')]]")));
-        var orderStatus = getDriver().findElement(By.xpath("//td[@data-title='Status']"));
-        var orderTotalAmount = getDriver().findElement(By.xpath("//td[@data-title='Total']/span"));
+        var orderNumberRow = getDriver().findByXPath("//tr[.//td//a[contains(text(),'"+orderNumber+"')]]");
+        var orderStatus = getDriver().findByXPath("//td[@data-title='Status']");
+        var orderTotalAmount = getDriver().findByXPath("//td[@data-title='Total']/span");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(orderStatus.getText(), "On hold");
         softAssert.assertEquals(orderTotalAmount.getText(), "95.00");

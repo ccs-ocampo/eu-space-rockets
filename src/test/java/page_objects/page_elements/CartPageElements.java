@@ -12,26 +12,26 @@ public class CartPageElements {
     }
 
     public Element couponCodeTextField(){
-        return  elementFindService.findElement(By.id("coupon_code"));
+        return  elementFindService.findById("coupon_code");
     }
 
     public Element applyCouponButton(){
-        return elementFindService.findElement(By.name("apply_coupon"));
+        return elementFindService.findByName("apply_coupon");
     }
 
     public Element quantityInput(){
-        return elementFindService.findElement(By.cssSelector("input[title='Qty']"));
+        return elementFindService.findByCss("input[title='Qty']");
     }
 
     public Element updateCartButton(){
-        return elementFindService.findElement(By.cssSelector("[value*='Update cart']"));
+        return elementFindService.findByCss("[value*='Update cart']");
     }
 
     public Element cartTotal(){
-        return elementFindService.findElement(By.xpath("//td[@data-title='Total']//bdi"));
+        return elementFindService.findByXPath("//td[@data-title='Total']//bdi");
     }
 
     public Element proceedToCheckoutButton(){
-        return elementFindService.findElement(By.cssSelector(".checkout-button"));
+        return elementFindService.findByCss(".checkout-button");
     }
 }

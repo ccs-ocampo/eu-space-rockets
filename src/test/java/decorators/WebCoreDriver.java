@@ -1,5 +1,6 @@
 package decorators;
 
+import decorators.strategy.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -60,20 +61,85 @@ public class WebCoreDriver extends Driver{
     }
 
     @Override
-    public Element findElement(By locator) {
-        var nativeWebElement = webDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        Element element = new WebCoreElement(webDriver,nativeWebElement,locator);
+    public Element find(FindStrategy findStrategy) {
+        var nativeWebElement = webDriverWait.until(ExpectedConditions.presenceOfElementLocated(findStrategy.convert()));
+        Element element = new WebCoreElement(webDriver,nativeWebElement,findStrategy.convert());
 
         return new LogElement(element);
     }
 
     @Override
-    public List<Element> findElements(By locator) {
+    public Element findById(String id) {
+        return find(new IdFindStrategy(id));
+    }
+
+    @Override
+    public Element findByXPath(String xpath) {
+        return find(new XpathFindStrategy(xpath));
+    }
+
+    @Override
+    public Element findByTag(String tag) {
+        return find(new TagFindStrategy(tag));
+    }
+
+    @Override
+    public Element findByClass(String cssClass) {
+        return find(new ClassFindStrategy(cssClass));
+    }
+
+    @Override
+    public Element findByCss(String css) {
+        return find(new CssFindStrategy(css));
+    }
+
+    @Override
+    public Element findByLinkText(String linkText) {
+        return find(new LinkTextFindStrategy(linkText));
+    }
+
+    @Override
+    public List<Element> findAllById(String id) {
+        return findAll(new IdFindStrategy(id));
+    }
+
+    @Override
+    public List<Element> findAllByXPath(String xpath) {
+        return findAll(new XpathFindStrategy(xpath));
+    }
+
+    @Override
+    public List<Element> findAllByTag(String tag) {
+        return findAll(new TagFindStrategy(tag));
+    }
+
+    @Override
+    public List<Element> findAllByClass(String cssClass) {
+        return findAll(new ClassFindStrategy(cssClass));
+    }
+
+    @Override
+    public List<Element> findAllByCss(String css) {
+        return findAll(new CssFindStrategy(css));
+    }
+
+    @Override
+    public List<Element> findAllByLinkText(String linkText) {
+        return findAll(new LinkTextFindStrategy(linkText));
+    }
+
+    @Override
+    public Element findByName(String name) {
+        return find(new NameFindStrategy(name));
+    }
+
+    @Override
+    public List<Element> findAll(FindStrategy findStrategy) {
         List<WebElement> nativeWebElements =
-                webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+                webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(findStrategy.convert()));
         var elements = new ArrayList<Element>();
         for(WebElement nativeWebElement: nativeWebElements){
-            Element element = new WebCoreElement(webDriver, nativeWebElement, locator);
+            Element element = new WebCoreElement(webDriver, nativeWebElement, findStrategy.convert());
             elements.add(new LogElement(element));
         }
         return elements;

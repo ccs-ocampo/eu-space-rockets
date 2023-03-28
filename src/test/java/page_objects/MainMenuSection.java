@@ -1,6 +1,5 @@
 package page_objects;
 
-import decorators.Driver;
 import decorators.Element;
 import decorators.interface_segregation.ElementFindService;
 import org.openqa.selenium.By;
@@ -13,7 +12,7 @@ public class MainMenuSection {
     }
 
     private Element myAccountLink() {
-        return elementFindService.findElement(By.xpath("//ul[@class='nav-menu']//a[text()='My account']"));
+        return elementFindService.findByXPath("//ul[@class='nav-menu']//a[text()='My account']");
     }
 
     public void openMyAccountPage(){

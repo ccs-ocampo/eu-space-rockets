@@ -1,6 +1,6 @@
 package decorators;
 
-import org.openqa.selenium.By;
+import decorators.strategy.FindStrategy;
 
 import java.util.List;
 
@@ -28,15 +28,15 @@ public class LogDriver extends DriverDecorator {
     }
 
     @Override
-    public Element findElement(By locator) {
+    public Element find(FindStrategy findStrategy) {
         System.out.print("Find element");
-        return driver.findElement(locator);
+        return driver.find(findStrategy);
     }
 
     @Override
-    public List<Element> findElements(By locator) {
+    public List<Element> findAll(FindStrategy findStrategy) {
         System.out.print("Find elements");
-        return driver.findElements(locator);
+        return driver.findAll(findStrategy);
     }
 
     @Override
