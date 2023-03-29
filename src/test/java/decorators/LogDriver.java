@@ -1,6 +1,6 @@
 package decorators;
 
-import decorators.strategy.FindStrategy;
+import decorators.find_strategy.FindStrategy;
 
 import java.util.List;
 

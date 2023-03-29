@@ -1,7 +1,7 @@
 package decorators.interface_segregation;
 
 import decorators.Element;
-import decorators.strategy.FindStrategy;
+import decorators.find_strategy.FindStrategy;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package decorators;
 
-import decorators.strategy.FindStrategy;
+import decorators.find_strategy.FindStrategy;
 import org.openqa.selenium.Cookie;
 
 import java.util.List;

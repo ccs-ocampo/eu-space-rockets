@@ -1,4 +1,4 @@
-package decorators.strategy;
+package decorators.find_strategy;
 
 import org.openqa.selenium.By;
 

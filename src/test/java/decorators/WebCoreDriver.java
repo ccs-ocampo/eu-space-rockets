@@ -1,6 +1,6 @@
 package decorators;
 
-import decorators.strategy.*;
+import decorators.find_strategy.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
